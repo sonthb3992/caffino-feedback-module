@@ -1,8 +1,8 @@
 {
   "name": "caffino-feedback-module",
-  "version": "1.0.3",
+  "version": "1.0.12",
   "description": "",
-  "main": "./lib/model/review.js",
+  "main": "./lib/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx tsc"
@@ -14,6 +14,9 @@
     "prettier": "2.8.8",
     "typescript": "^5.1.3"
   },
+  "files": [
+    "./lib"
+  ],
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.4.0",
     "@types/react": "18.2.14",

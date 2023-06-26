@@ -14,6 +14,8 @@ import {
 import { FeedbackModuleConfig as FeedBackModuleConfig } from "./config";
 import "bulma/css/bulma.css";
 import "@fortawesome/fontawesome-free/css/all.css";
+import { initializeApp } from "firebase/app";
+import { initializeAppIfNecessary } from "./firebase";
 
 export interface Reply {
   replyUid: string;
@@ -71,8 +73,13 @@ export async function PushReplyToFirebase(
   onFailure?: (error: unknown) => void
 ): Promise<boolean> {
   try {
-    const { firebaseApp, reviewCollectionPath } = config;
-    const db = getFirestore(firebaseApp);
+    const { firebaseConfig, reviewCollectionPath } = config;
+    const app = initializeAppIfNecessary(firebaseConfig);
+    if (!app) {
+      console.log("App is null");
+      return false;
+    }
+    const db = getFirestore(app);
     const reviewsCollectionRef = collection(
       db,
       reviewCollectionPath,
@@ -98,8 +105,14 @@ export async function GetReplies(
   onFailure?: (error: unknown) => void
 ): Promise<Reply[]> {
   try {
-    const { firebaseApp, reviewCollectionPath } = config;
-    const db = getFirestore(firebaseApp);
+    const { firebaseConfig, reviewCollectionPath } = config;
+    const app = initializeAppIfNecessary(firebaseConfig);
+    if (!app) {
+      console.log("App is null");
+      return [];
+    }
+
+    const db = getFirestore(app);
     const repliesRef = collection(
       db,
       reviewCollectionPath,

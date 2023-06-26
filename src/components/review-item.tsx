@@ -8,14 +8,13 @@ import { FeedbackModuleConfig } from "../model/config";
 
 interface ReviewItemProps {
   review: Review;
-  level?: number;
   config: FeedbackModuleConfig;
   currentUser: UserInfo;
   showUserAvatar?: boolean;
   elevated?: boolean;
 }
 
-const ReviewItem: React.FC<ReviewItemProps> = ({
+export const ReviewItem: React.FC<ReviewItemProps> = ({
   config,
   review,
   currentUser,
@@ -169,5 +168,3 @@ const ReviewItem: React.FC<ReviewItemProps> = ({
     </div>
   );
 };
-
-export default ReviewItem;

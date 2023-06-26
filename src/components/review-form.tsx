@@ -61,6 +61,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
 
   const sendReview = async () => {
     if (rating === 0) {
+      console.log("Rating is 0. Please rate your order."); // Debugging statement
       alert("Please rate your order.");
       return;
     }
@@ -76,6 +77,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
       reviewDateTime: new Date(Date.now()),
     };
     setIsSending(true);
+    console.log("Sending review to Firebase:", review); // Debugging statement
     const isSuccess = await PushReviewToFirebase(
       reviewConfig,
       review,
@@ -84,10 +86,12 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
     );
     setIsSending(false);
     if (isSuccess) {
+      console.log("Review sent successfully"); // Debugging statement
       handleResetForm();
       return;
     }
     setIsSending(false);
+    console.log("Error sending review"); // Debugging statement
   };
 
   useEffect(() => {

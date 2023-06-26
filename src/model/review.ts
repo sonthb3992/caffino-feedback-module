@@ -14,6 +14,7 @@ import {
 import { FeedbackModuleConfig } from "./config";
 import "bulma/css/bulma.css";
 import "@fortawesome/fontawesome-free/css/all.css";
+import { initializeAppIfNecessary } from "./firebase";
 
 export interface Review {
   uid: string;
@@ -80,16 +81,26 @@ export async function PushReviewToFirebase(
   onFailure?: (error: unknown) => void
 ): Promise<boolean> {
   try {
-    const { firebaseApp, reviewCollectionPath } = config;
-    const db = getFirestore(firebaseApp);
+    const { firebaseConfig, reviewCollectionPath } = config;
+    const app = initializeAppIfNecessary(config.firebaseConfig);
+    if (!app) {
+      console.log("App is null");
+      return false;
+    }
+
+    const db = getFirestore(app);
     const reviewsCollectionRef = collection(db, reviewCollectionPath);
 
     const newReviewDocRef = doc(reviewsCollectionRef);
+    console.log("New review document reference:", newReviewDocRef); // Debugging statement
     await setDoc(newReviewDocRef, ReviewToFirestore(review));
+    console.log("Review document successfully set in Firestore."); // Debugging statement
 
     onSuccess?.();
+    console.log("PushReviewToFirebase succeeded."); // Debugging statement
     return true;
   } catch (error) {
+    console.error("Error in PushReviewToFirebase:", error); // Debugging statement
     onFailure?.(error);
     return false;
   }
@@ -102,8 +113,14 @@ export async function GetRecentReviews(
   onFailure?: (error: unknown) => void
 ): Promise<Review[]> {
   try {
-    const { firebaseApp, reviewCollectionPath } = config;
-    const db = getFirestore(firebaseApp);
+    const { firebaseConfig, reviewCollectionPath } = config;
+    const app = initializeAppIfNecessary(config.firebaseConfig);
+    if (!app) {
+      console.log("App is null");
+      return [];
+    }
+
+    const db = getFirestore(app);
     const reviewsRef = collection(db, reviewCollectionPath);
 
     const querySnapshot = await getDocs(
@@ -127,10 +144,18 @@ export async function GetReviewsOfOrder(
   onFailure?: (error: unknown) => void
 ): Promise<Review[]> {
   try {
-    const { firebaseApp, reviewCollectionPath } = config;
-    const db = getFirestore(firebaseApp);
+    const { firebaseConfig, reviewCollectionPath } = config;
+    console.log(firebaseConfig);
+    const app = initializeAppIfNecessary(config.firebaseConfig);
+    if (!app) {
+      console.log("App is null");
+      return [];
+    }
+
+    const db = getFirestore(app);
     const reviewsRef = collection(db, reviewCollectionPath);
 
+    console.log("Fetching reviews for order:", orderUid); // Debugging statement
     const querySnapshot = await getDocs(
       query(
         reviewsRef,
@@ -141,9 +166,11 @@ export async function GetReviewsOfOrder(
     );
 
     const result = querySnapshot.docs.map((doc) => ReviewFromFirestore(doc));
+    console.log("Fetched reviews:", result); // Debugging statement
     onSuccess?.();
     return result;
   } catch (error) {
+    console.error("Error in GetReviewsOfOrder:", error); // Debugging statement
     onFailure?.(error);
     return [];
   }
