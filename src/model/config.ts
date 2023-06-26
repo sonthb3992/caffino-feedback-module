@@ -1,6 +1,6 @@
 import { FirebaseApp } from "@firebase/app";
 
-export interface ReviewConfig {
+export interface FeedbackModuleConfig {
   firebaseApp: FirebaseApp;
   reviewCollectionPath: string;
 }

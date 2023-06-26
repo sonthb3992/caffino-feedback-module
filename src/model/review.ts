@@ -11,9 +11,9 @@ import {
   setDoc,
   where,
 } from "firebase/firestore";
-import { ReviewConfig } from "./config";
-import 'bulma/css/bulma.css';
-import '@fortawesome/fontawesome-free/css/all.css';
+import { FeedbackModuleConfig } from "./config";
+import "bulma/css/bulma.css";
+import "@fortawesome/fontawesome-free/css/all.css";
 
 export interface Review {
   uid: string;
@@ -74,7 +74,7 @@ export function ReviewToFirestore(review: Review): any {
 }
 
 export async function PushReviewToFirebase(
-  config: ReviewConfig,
+  config: FeedbackModuleConfig,
   review: Review,
   onSuccess?: () => void,
   onFailure?: (error: unknown) => void
@@ -96,7 +96,7 @@ export async function PushReviewToFirebase(
 }
 
 export async function GetRecentReviews(
-  config: ReviewConfig,
+  config: FeedbackModuleConfig,
   count: number,
   onSuccess?: () => void,
   onFailure?: (error: unknown) => void
@@ -120,7 +120,7 @@ export async function GetRecentReviews(
 }
 
 export async function GetReviewsOfOrder(
-  config: ReviewConfig,
+  config: FeedbackModuleConfig,
   orderUid: string,
   count: number,
   onSuccess?: () => void,

@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { PushReviewToFirebase, Review } from '../model/review';
-import Rating from './rating';
-import { UserInfo } from '../model/user';
-import { ReviewConfig } from '../model/config';
-import { useTranslation } from 'react-i18next';
+import React, { useEffect, useState } from "react";
+import { PushReviewToFirebase, Review } from "../model/review";
+import Rating from "./rating";
+import { UserInfo } from "../model/user";
+import { FeedbackModuleConfig } from "../model/config";
+import { useTranslation } from "react-i18next";
 
 interface ReviewFormProps {
   isModal: boolean;
   userInfo: UserInfo;
-  reviewConfig: ReviewConfig;
+  reviewConfig: FeedbackModuleConfig;
   orderUid: string;
   isActived?: boolean;
   onClose?: () => void;
@@ -24,12 +24,12 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
   isActived,
   onClose,
   onSuccess,
-  onFailure
+  onFailure,
 }) => {
   const [actived, setActived] = useState<boolean>(false);
-  const [commentLabel, setCommentLabel] = useState<string>('');
+  const [commentLabel, setCommentLabel] = useState<string>("");
   const [rating, setRating] = useState(0);
-  const [comment, setComment] = useState<string>('');
+  const [comment, setComment] = useState<string>("");
   const [isPublic, setIsPublic] = useState<boolean>(true);
   const [isSending, setIsSending] = useState<boolean>(false);
 
@@ -37,8 +37,8 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
 
   const handleResetForm = () => {
     setRating(0);
-    setCommentLabel('');
-    setComment('');
+    setCommentLabel("");
+    setComment("");
     setIsPublic(true);
     setIsSending(false);
     setActived(false);
@@ -47,7 +47,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
 
   const onRatingChanged = (newRating: number) => {
     setRating(newRating);
-    setCommentLabel('reviewForm.' + newRating.toString() + 'star');
+    setCommentLabel("reviewForm." + newRating.toString() + "star");
   };
 
   const onCommentChanged = (comment: string) => {
@@ -56,12 +56,12 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
 
   const handlePublicChanged = (ev: React.ChangeEvent<HTMLInputElement>) => {
     console.log(ev.target.value);
-    setIsPublic(ev.target.value === 'public');
+    setIsPublic(ev.target.value === "public");
   };
 
   const sendReview = async () => {
     if (rating === 0) {
-      alert('Please rate your order.');
+      alert("Please rate your order.");
       return;
     }
     const review: Review = {
@@ -69,14 +69,19 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
       rating: rating,
       userUid: userInfo.userUid,
       comment: comment,
-      uid: '',
+      uid: "",
       isPublic: isPublic,
-      reviewerName: userInfo.displayName ?? 'Anonymous user',
-      reviewerImageUrl: userInfo.imageUrl ?? '',
+      reviewerName: userInfo.displayName ?? "Anonymous user",
+      reviewerImageUrl: userInfo.imageUrl ?? "",
       reviewDateTime: new Date(Date.now()),
     };
     setIsSending(true);
-    const isSuccess = await PushReviewToFirebase(reviewConfig, review, onSuccess, onFailure);
+    const isSuccess = await PushReviewToFirebase(
+      reviewConfig,
+      review,
+      onSuccess,
+      onFailure
+    );
     setIsSending(false);
     if (isSuccess) {
       handleResetForm();
@@ -91,14 +96,15 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
 
   return (
     <div
-      className={`${isModal ? 'modal' : ''} ${isModal && actived ? 'is-active' : ''
-        }`}
+      className={`${isModal ? "modal" : ""} ${
+        isModal && actived ? "is-active" : ""
+      }`}
     >
       {isModal && <div className="modal-background"></div>}
       <div className="modal-card card">
         {isModal && (
           <header className="modal-card-head">
-            <p className="modal-card-title">{t('Review order')}</p>
+            <p className="modal-card-title">{t("Review order")}</p>
             <button
               className="delete"
               onClick={() => handleResetForm()}
@@ -108,7 +114,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
         )}
         <section className="modal-card-body">
           <div className="block is-flex is-justify-content-center">
-            <label className="title is-5">{t('reviewForm.plsRate')}</label>
+            <label className="title is-5">{t("reviewForm.plsRate")}</label>
           </div>
           <div className="block is-flex is-justify-content-center">
             <Rating
@@ -129,7 +135,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
                 maxLength={500}
                 onChange={(event) => onCommentChanged(event.target.value)}
                 className="textarea is-primary has-fixed-size"
-                placeholder={t('reviewForm.commentPlaceholder').toString()}
+                placeholder={t("reviewForm.commentPlaceholder").toString()}
               ></textarea>
             </div>
           )}
@@ -144,7 +150,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
                     onChange={handlePublicChanged}
                     defaultChecked
                   ></input>
-                  {' Public my review'}
+                  {" Public my review"}
                 </label>
                 <label className="radio ml-3">
                   <input
@@ -153,17 +159,17 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
                     value="private"
                     onChange={handlePublicChanged}
                   ></input>
-                  {' Do not public my review'}
+                  {" Do not public my review"}
                 </label>
               </div>
             </div>
           )}
         </section>
-        <footer className={`${isModal ? 'modal-card-foot' : ''}`}>
+        <footer className={`${isModal ? "modal-card-foot" : ""}`}>
           <div className="buttons pl-5 pb-5">
             <button
               onClick={() => sendReview()}
-              className={`button is-success ${isSending ? 'is-loading' : ''}`}
+              className={`button is-success ${isSending ? "is-loading" : ""}`}
             >
               Sent
             </button>
