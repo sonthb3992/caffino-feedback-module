@@ -47,7 +47,38 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
 
   const onRatingChanged = (newRating: number) => {
     setRating(newRating);
-    setCommentLabel("reviewForm." + newRating.toString() + "star");
+    switch (newRating) {
+      case 1:
+        setCommentLabel(
+          "Please let us know what needs to be changed for us to continue serving you?"
+        );
+        break;
+      case 2:
+        setCommentLabel(
+          "What made you unsatisfied with us? Please provide feedback to help us improve."
+        );
+
+        break;
+      case 3:
+        setCommentLabel("Please let us know what else we can improve?");
+
+        break;
+      case 4:
+        setCommentLabel(
+          "Let us know what we can do better to enhance your experience?"
+        );
+
+        break;
+      case 5:
+        setCommentLabel(
+          "Thank you for your compliments. What do you like about us?"
+        );
+
+        break;
+      default:
+        setCommentLabel("");
+        break;
+    }
   };
 
   const onCommentChanged = (comment: string) => {
@@ -108,7 +139,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
       <div className="modal-card card">
         {isModal && (
           <header className="modal-card-head">
-            <p className="modal-card-title">{t("Review order")}</p>
+            <p className="modal-card-title">Review Order</p>
             <button
               className="delete"
               onClick={() => handleResetForm()}
@@ -118,7 +149,9 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
         )}
         <section className="modal-card-body">
           <div className="block is-flex is-justify-content-center">
-            <label className="title is-5">{t("reviewForm.plsRate")}</label>
+            <label className="title is-5">
+              Please rate your ordering experience
+            </label>
           </div>
           <div className="block is-flex is-justify-content-center">
             <Rating
@@ -128,7 +161,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
           </div>
           {rating >= 1 && (
             <div className="block is-flex is-justify-content-center">
-              <label>{t(commentLabel)}</label>
+              <label>{commentLabel}</label>
             </div>
           )}
           {rating >= 1 && (
@@ -139,7 +172,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
                 maxLength={500}
                 onChange={(event) => onCommentChanged(event.target.value)}
                 className="textarea is-primary has-fixed-size"
-                placeholder={t("reviewForm.commentPlaceholder").toString()}
+                placeholder="Please share your order experience"
               ></textarea>
             </div>
           )}
