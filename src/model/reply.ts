@@ -13,9 +13,6 @@ import {
   where,
 } from "firebase/firestore";
 import { FeedbackModuleConfig as FeedBackModuleConfig } from "./config";
-import "bulma/css/bulma.css";
-import "@fortawesome/fontawesome-free/css/all.css";
-import { initializeApp } from "firebase/app";
 import { initializeAppIfNecessary } from "./firebase";
 
 export interface Reply {
