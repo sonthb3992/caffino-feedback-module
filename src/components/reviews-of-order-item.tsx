@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Rating from "./rating";
-import ReplyItem from "./reply-item";
 import { UserInfo } from "../model/user";
-import { GetReplies, PushReplyToFirebase, Reply } from "../model/reply";
 import { FeedbackModuleConfig } from "../model/config";
 import { GetReviewsOfOrder, Review } from "../model/review";
 import { ReviewItem } from "./review-item";
@@ -24,14 +21,14 @@ export const ReviewsOfOrderItem: React.FC<ReviewsOfOrderItemProps> = ({
 }) => {
   const [reviews, setReviews] = useState<Review[]>([]);
 
-  const fetchReviews = async (orderId: string) => {
-    const reviews = await GetReviewsOfOrder(config, orderId, 20);
-    setReviews(reviews);
-  };
-
   useEffect(() => {
+    const fetchReviews = async (orderId: string) => {
+      const reviews = await GetReviewsOfOrder(config, orderId, 20);
+      console.log("reviews", reviews);
+      setReviews(reviews);
+    };
     fetchReviews(orderId);
-  }, [orderId]);
+  }, []);
 
   return (
     <>

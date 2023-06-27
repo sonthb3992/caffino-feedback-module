@@ -13,7 +13,7 @@ interface RecentReviewsComponentProps {
   elevated?: boolean;
 }
 
-const RecentReviewsComponent: React.FC<RecentReviewsComponentProps> = ({
+export const RecentReviewsComponent: React.FC<RecentReviewsComponentProps> = ({
   config,
   currentUser,
   loadCount,
@@ -51,5 +51,3 @@ const RecentReviewsComponent: React.FC<RecentReviewsComponentProps> = ({
     </div>
   );
 };
-
-export default RecentReviewsComponent;
