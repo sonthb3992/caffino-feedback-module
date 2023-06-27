@@ -4,6 +4,7 @@ import Rating from "./rating";
 import { UserInfo } from "../model/user";
 import { FeedbackModuleConfig } from "../model/config";
 import { useTranslation } from "react-i18next";
+import "./mystyle.css";
 
 interface ReviewFormProps {
   isModal: boolean;

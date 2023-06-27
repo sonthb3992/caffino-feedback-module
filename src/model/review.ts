@@ -12,7 +12,7 @@ import {
   where,
 } from "firebase/firestore";
 import { FeedbackModuleConfig } from "./config";
-import "bulma/css/bulma.css";
+
 import "@fortawesome/fontawesome-free/css/all.css";
 import { initializeAppIfNecessary } from "./firebase";
 

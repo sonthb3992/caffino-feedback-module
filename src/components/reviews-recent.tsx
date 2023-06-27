@@ -4,6 +4,7 @@ import { GetRecentReviews, Review } from "../model/review";
 import { FeedbackModuleConfig } from "../model/config";
 import { UserInfo } from "../model/user";
 import { ReviewItem } from "./review-item";
+import "./mystyle.css";
 
 interface RecentReviewsComponentProps {
   config: FeedbackModuleConfig;

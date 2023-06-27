@@ -9,6 +9,7 @@ import {
   orderBy,
   query,
   setDoc,
+  updateDoc,
   where,
 } from "firebase/firestore";
 import { FeedbackModuleConfig as FeedBackModuleConfig } from "./config";
@@ -35,8 +36,8 @@ export function ReplyFromFireStore(snapshot: DocumentSnapshot<any>): Reply {
     userUid: data.userUid,
     reviewUid: data.reviewUid,
     comment: data.comment,
-    replierName: data.reviewerName,
-    replierImageUrl: data.reviewerImageUrl,
+    replierName: data.replierName,
+    replierImageUrl: data.replierImageUrl,
     replyDateTime: data.timestamp.toDate(),
   };
 
@@ -89,6 +90,12 @@ export async function PushReplyToFirebase(
 
     const newReviewDocRef = doc(reviewsCollectionRef);
     await setDoc(newReviewDocRef, ReplyToFirestore(reply));
+
+    const reviewRef = collection(db, reviewCollectionPath);
+    const reviewDocRef = doc(reviewRef, reply.reviewUid);
+    await updateDoc(reviewDocRef, {
+      hasReply: true,
+    });
 
     onSuccess?.();
     return true;

@@ -5,6 +5,7 @@ import { Review } from "../model/review";
 import { UserInfo } from "../model/user";
 import { GetReplies, PushReplyToFirebase, Reply } from "../model/reply";
 import { FeedbackModuleConfig } from "../model/config";
+import "./mystyle.css";
 
 interface ReviewItemProps {
   review: Review;
@@ -91,7 +92,9 @@ export const ReviewItem: React.FC<ReviewItemProps> = ({
                 </div>
               </div>
               <div className="level-right">
-                <i className="is-size-7">{review.reviewDateTime.toString()}</i>
+                <i className="is-size-7">
+                  {review.reviewDateTime.toLocaleString()}
+                </i>
               </div>
             </div>
             <p className="has-text-weight-normal">{review.comment}</p>
@@ -106,23 +109,22 @@ export const ReviewItem: React.FC<ReviewItemProps> = ({
                     Reply
                   </button>
                 )}
-                {review.hasReply &&
-                  review.hasReply === true &&
-                  (!showReplies ? (
-                    <button
-                      className="button is-small is-info is-size-7 ml-2"
-                      onClick={() => loadReplies()}
-                    >
-                      Show replies
-                    </button>
-                  ) : (
-                    <button
-                      className="button is-small is-info is-size-7 ml-2"
-                      onClick={() => setShowReplies(false)}
-                    >
-                      Hide UnA's reply
-                    </button>
-                  ))}
+                {review.hasReply && !showReplies && (
+                  <button
+                    className="button is-small is-info is-size-7 ml-2"
+                    onClick={() => loadReplies()}
+                  >
+                    Show replies
+                  </button>
+                )}
+                {review.hasReply && !showReplies && (
+                  <button
+                    className="button is-small is-info is-size-7 ml-2"
+                    onClick={() => setShowReplies(false)}
+                  >
+                    Hide replies
+                  </button>
+                )}
               </div>
             </div>
             {replying && (

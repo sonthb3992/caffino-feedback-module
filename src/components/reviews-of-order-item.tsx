@@ -3,6 +3,7 @@ import { UserInfo } from "../model/user";
 import { FeedbackModuleConfig } from "../model/config";
 import { GetReviewsOfOrder, Review } from "../model/review";
 import { ReviewItem } from "./review-item";
+import "./mystyle.css";
 
 interface ReviewsOfOrderItemProps {
   config: FeedbackModuleConfig;
@@ -33,16 +34,14 @@ export const ReviewsOfOrderItem: React.FC<ReviewsOfOrderItemProps> = ({
   return (
     <div>
       {reviews.map((review) => (
-        <div>
-          <ReviewItem
-            config={config}
-            currentUser={currentUser}
-            review={review}
-            key={review.uid}
-            elevated={elevated}
-            showUserAvatar={showUserAvatar}
-          ></ReviewItem>
-        </div>
+        <ReviewItem
+          config={config}
+          currentUser={currentUser}
+          review={review}
+          key={review.uid}
+          elevated={elevated}
+          showUserAvatar={showUserAvatar}
+        ></ReviewItem>
       ))}
     </div>
   );

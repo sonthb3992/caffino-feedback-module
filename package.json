@@ -1,16 +1,19 @@
 {
   "name": "caffino-feedback-module",
-  "version": "1.0.15",
+  "version": "1.0.21",
   "description": "",
   "main": "./lib/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npx tsc"
+    "build": "npx tsc",
+    "css-build": "node-sass --omit-source-map-url sass/mystyles.scss css/mystyles.css",
+    "css-watch": "npm run css-build -- --watch"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "node-sass": "^9.0.0",
     "prettier": "2.8.8",
     "typescript": "^5.1.3"
   },
