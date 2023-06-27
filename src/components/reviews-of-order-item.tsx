@@ -31,20 +31,19 @@ export const ReviewsOfOrderItem: React.FC<ReviewsOfOrderItemProps> = ({
   }, []);
 
   return (
-    <>
-      {reviews &&
-        reviews.map((review) => {
-          <div>
-            <ReviewItem
-              config={config}
-              currentUser={currentUser}
-              review={review}
-              key={review.uid}
-              elevated={elevated}
-              showUserAvatar={showUserAvatar}
-            ></ReviewItem>
-          </div>;
-        })}
-    </>
+    <div>
+      {reviews.map((review) => (
+        <div>
+          <ReviewItem
+            config={config}
+            currentUser={currentUser}
+            review={review}
+            key={review.uid}
+            elevated={elevated}
+            showUserAvatar={showUserAvatar}
+          ></ReviewItem>
+        </div>
+      ))}
+    </div>
   );
 };
