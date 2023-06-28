@@ -137,10 +137,10 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
       }`}
     >
       {isModal && <div className="modal-background"></div>}
-      <div className="modal-card card">
+      <div className="card">
         {isModal && (
-          <header className="modal-card-head">
-            <p className="modal-card-title">Review Order</p>
+          <header className="card-header">
+            <p className="card-header-title">Review Order</p>
             <button
               className="delete"
               onClick={() => handleResetForm()}
@@ -148,7 +148,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
             ></button>
           </header>
         )}
-        <section className="modal-card-body">
+        <section className="card-content">
           <div className="block is-flex is-justify-content-center">
             <label className="title is-5">
               Please rate your ordering experience
@@ -203,7 +203,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
             </div>
           )}
         </section>
-        <footer className={`${isModal ? "modal-card-foot" : ""}`}>
+        <footer className={`${isModal ? "card-footer" : ""}`}>
           <div className="buttons pl-5 pb-5">
             <button
               onClick={() => sendReview()}

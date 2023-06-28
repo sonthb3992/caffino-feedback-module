@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Review } from "../model/review";
 import { Reply } from "../model/reply";
 import { FeedbackModuleConfig } from "../model/config";
@@ -22,7 +22,8 @@ export const ReviewComponent: React.FC<ReviewComponentProps> = ({
   showUserAvatar = true,
   elevated = false,
 }) => {
-  useEffect(() => {}, []);
+  const [reload, setReload] = useState<Boolean>(false);
+  useEffect(() => {}, [reload]);
 
   return (
     <>
@@ -32,6 +33,7 @@ export const ReviewComponent: React.FC<ReviewComponentProps> = ({
           userInfo={currentUser}
           reviewConfig={config}
           orderUid={orderId}
+          onSuccess={() => setReload(!reload)}
         ></ReviewForm>
       </div>
       <div className="section">

@@ -1,6 +1,6 @@
 {
   "name": "caffino-feedback-module",
-  "version": "1.0.24",
+  "version": "1.0.27",
   "description": "",
   "main": "./lib/index.js",
   "scripts": {

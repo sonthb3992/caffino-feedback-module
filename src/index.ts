@@ -7,4 +7,5 @@ export * from "./components/reply-item";
 export * from "./components/review-item";
 export * from "./components/reviews-of-order-item";
 export * from "./components/reviews-recent";
+export * from "./components/review-component";
 export * from "./components/rating";
