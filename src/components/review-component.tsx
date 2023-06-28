@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Review } from "../model/review";
-import { Reply } from "../model/reply";
 import { FeedbackModuleConfig } from "../model/config";
 import { UserInfo } from "../model/user";
 import { ReviewForm } from "./review-form";
@@ -20,7 +18,7 @@ export const ReviewComponent: React.FC<ReviewComponentProps> = ({
   orderId,
   currentUser,
   showUserAvatar = true,
-  elevated = false,
+  elevated = true,
 }) => {
   const [reload, setReload] = useState<Boolean>(false);
   useEffect(() => {}, [reload]);

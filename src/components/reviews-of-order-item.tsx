@@ -18,7 +18,7 @@ export const ReviewsOfOrderItem: React.FC<ReviewsOfOrderItemProps> = ({
   orderId,
   currentUser,
   showUserAvatar = true,
-  elevated = false,
+  elevated = true,
 }) => {
   const [reviews, setReviews] = useState<Review[]>([]);
 

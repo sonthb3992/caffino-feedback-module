@@ -1,25 +1,51 @@
 @charset "utf-8";
 
 // Import a Google Font
-@import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
+@import url("https://fonts.googleapis.com/css?family=Nunito:400,700");
 @import "../node_modules/bulma/sass/base/_all.sass";
 @import "../node_modules/bulma/sass/utilities/_all.sass";
 @import "../node_modules/bulma/sass/elements/_all.sass";
 @import "../node_modules/bulma/sass/layout/_all.sass";
 @import "../node_modules/bulma/sass/helpers/_all.sass";
 @import "../node_modules/bulma/sass/grid/_all.sass";
+@import "../node_modules/bulma/sass/form/_all.sass";
 @import "../node_modules/bulma/sass/components/card.sass";
 @import "../node_modules/bulma/sass/components/level.sass";
 @import "../node_modules/bulma/sass/components/media.sass";
 
+.visually-hidden {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+}
 
-// // Import only what you need from Bulma
-// @import "../node_modules/bulma/sass/utilities/_all.sass";
-// @import "../node_modules/bulma/sass/base/_all.sass";
-// @import "../node_modules/bulma/sass/elements/button.sass";
-// @import "../node_modules/bulma/sass/elements/container.sass";
-// @import "../node_modules/bulma/sass/elements/title.sass";
-// @import "../node_modules/bulma/sass/form/_all.sass";
-// @import "../node_modules/bulma/sass/components/navbar.sass";
-// @import "../node_modules/bulma/sass/layout/hero.sass";
-// @import "../node_modules/bulma/sass/layout/section.sass";
+.star-rating__star {
+  display: inline-block;
+  padding: 3px;
+  vertical-align: middle;
+  line-height: 1;
+  font-size: 1.5em;
+  color: #ababab;
+  transition: color 0.2s ease-out;
+}
+
+.star-rating__star:hover {
+  cursor: pointer;
+}
+
+.star-rating__star.is-selected {
+  color: #ffd700;
+}
+
+.star-rating__star.is-disabled:hover {
+  cursor: default;
+}
+
+.star-rating__checkbox {
+  display: none;
+}

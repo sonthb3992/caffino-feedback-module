@@ -19,7 +19,7 @@ export const RecentReviewsComponent: React.FC<RecentReviewsComponentProps> = ({
   currentUser,
   loadCount,
   showUserAvatar = true,
-  elevated = false,
+  elevated = true,
 }) => {
   const [reviews, setReviews] = useState<Review[]>([]);
 

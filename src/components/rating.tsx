@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import './rating.css';
+import React, { useEffect, useState } from "react";
+import "./mystyle.css";
 
 interface RatingProps {
   disabled?: boolean;
@@ -61,7 +61,7 @@ const Rating: React.FC<RatingProps> = ({
           <label
             key={index}
             onClick={() => rate(index + 1)}
-            className={`star-rating__star ${selected ? 'is-selected' : ''}`}
+            className={`star-rating__star ${selected ? "is-selected" : ""}`}
           >
             ★
           </label>
