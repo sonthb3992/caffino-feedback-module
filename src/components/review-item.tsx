@@ -117,7 +117,7 @@ export const ReviewItem: React.FC<ReviewItemProps> = ({
                     Show replies
                   </button>
                 )}
-                {review.hasReply && !showReplies && (
+                {review.hasReply && showReplies && (
                   <button
                     className="button is-small is-info is-size-7 ml-2"
                     onClick={() => setShowReplies(false)}

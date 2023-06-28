@@ -4,6 +4,7 @@ import { UserInfo } from "../model/user";
 import { ReviewForm } from "./review-form";
 import { ReviewsOfOrderItem } from "./reviews-of-order-item";
 import "./mystyle.css";
+import { ReviewHasReplies } from "../model/review";
 
 interface ReviewComponentProps {
   config: FeedbackModuleConfig;
@@ -20,26 +21,38 @@ export const ReviewComponent: React.FC<ReviewComponentProps> = ({
   showUserAvatar = true,
   elevated = true,
 }) => {
-  const [reload, setReload] = useState<Boolean>(false);
-  useEffect(() => {}, [reload]);
+  const [reload, setReload] = useState<boolean>(false);
+  const [hasReview, setHasReview] = useState<boolean>(false);
+  useEffect(() => {
+    const fetchReviews = async () => {
+      const result = await ReviewHasReplies(config, orderId);
+      setHasReview(result);
+    };
+    fetchReviews();
+  }, [reload]);
 
   return (
     <>
-      <div className="section">
-        <ReviewForm
-          isModal={false}
-          userInfo={currentUser}
-          reviewConfig={config}
-          orderUid={orderId}
-          onSuccess={() => setReload(!reload)}
-        ></ReviewForm>
+      <div className="p-3">
+        {!hasReview && (
+          <ReviewForm
+            isModal={false}
+            userInfo={currentUser}
+            reviewConfig={config}
+            orderUid={orderId}
+            onSuccess={() => setReload(!reload)}
+          ></ReviewForm>
+        )}
       </div>
-      <div className="section">
-        <ReviewsOfOrderItem
-          config={config}
-          orderId={orderId}
-          currentUser={currentUser}
-        ></ReviewsOfOrderItem>
+      <div className="p-3">
+        {hasReview && (
+          <ReviewsOfOrderItem
+            config={config}
+            orderId={orderId}
+            shouldReload={reload}
+            currentUser={currentUser}
+          ></ReviewsOfOrderItem>
+        )}
       </div>
     </>
   );

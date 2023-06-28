@@ -9,6 +9,7 @@ interface ReviewsOfOrderItemProps {
   config: FeedbackModuleConfig;
   orderId: string;
   currentUser: UserInfo;
+  shouldReload?: boolean;
   showUserAvatar?: boolean;
   elevated?: boolean;
 }
@@ -17,6 +18,7 @@ export const ReviewsOfOrderItem: React.FC<ReviewsOfOrderItemProps> = ({
   config,
   orderId,
   currentUser,
+  shouldReload = false,
   showUserAvatar = true,
   elevated = true,
 }) => {
@@ -29,7 +31,7 @@ export const ReviewsOfOrderItem: React.FC<ReviewsOfOrderItemProps> = ({
       setReviews(reviews);
     };
     fetchReviews(orderId);
-  }, []);
+  }, [shouldReload]);
 
   return (
     <div>

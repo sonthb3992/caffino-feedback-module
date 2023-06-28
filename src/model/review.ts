@@ -175,3 +175,31 @@ export async function GetReviewsOfOrder(
     return [];
   }
 }
+
+export async function ReviewHasReplies(
+  config: FeedbackModuleConfig,
+  orderUid: string
+): Promise<boolean> {
+  try {
+    const { firebaseConfig, reviewCollectionPath } = config;
+    console.log(firebaseConfig);
+    const app = initializeAppIfNecessary(config.firebaseConfig);
+    if (!app) {
+      console.log("App is null");
+      return false;
+    }
+
+    const db = getFirestore(app);
+    const reviewsRef = collection(db, reviewCollectionPath);
+
+    console.log("Fetching reviews for order:", orderUid); // Debugging statement
+    const querySnapshot = await getDocs(
+      query(reviewsRef, where("orderId", "==", orderUid))
+    );
+
+    return !querySnapshot.empty;
+  } catch (error) {
+    console.error("Error in GetReviewsOfOrder:", error); // Debugging statement
+    return false;
+  }
+}
